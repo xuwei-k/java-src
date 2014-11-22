@@ -1,16 +1,30 @@
 package java_src
 
-import java.io.{OutputStream, InputStream, ByteArrayOutputStream}
+import java.io.{ByteArrayOutputStream, InputStream, OutputStream}
 import java.net.URL
 import unfiltered.request._
-import unfiltered.response.{Redirect, Html5, ResponseString}
+import unfiltered.response.{Html5, Redirect, ResponseString}
 import scala.util.control.NonFatal
 import scala.xml.{Elem, XML}
+import scalaz.{-\/, \/, \/-}
 
 final class App extends unfiltered.filter.Plan {
   import java_src.App._
 
   def intent = {
+    case GET(Path(Seg(org :: Nil))) =>
+      searchByGroupId(org) match {
+        case \/-(Nil) =>
+          Html5(<p>{"not found groupId=" + org}</p>)
+        case \/-(list) =>
+          Html5(<ul>{
+            list.map{ name =>
+              <li><a href={s"$JavaSrcURL$org/$name"}>{name}</a></li>
+            }
+          }</ul>)
+        case -\/(error) =>
+          Html5(<pre>{error.toString + "\n" + error.getStackTrace.mkString("\n")}</pre>)
+      }
     case GET(Path(Seg(org :: name :: Nil)) & Params(p)) =>
       val baseUrl = baseURL(p)
       def showVesions = Html5(<ul>{
@@ -154,4 +168,21 @@ object App {
     read()
   }
 
+  def searchByGroupId(groupId: String): httpz.Error \/ List[String] = {
+    import httpz._
+    import httpz.native._
+
+    val req = Request(
+      url = "http://search.maven.org/solrsearch/select",
+      params = Map(
+        "q" -> s"g:$groupId",
+        "rows" -> "256",
+        "wt" -> "json"
+      )
+    )
+
+    Core.json[MavenSearch](req).interpret.map(
+      _.response.docs.filter(_.hasSourcesJar).map(_.artifactId).sorted
+    )
+  }
 }
