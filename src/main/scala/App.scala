@@ -3,7 +3,7 @@ package java_src
 import java.io.{OutputStream, InputStream, ByteArrayOutputStream}
 import java.net.URL
 import unfiltered.request._
-import unfiltered.response.{Html5, ResponseString}
+import unfiltered.response.{Redirect, Html5, ResponseString}
 import scala.util.control.NonFatal
 import scala.xml.{Elem, XML}
 
@@ -13,17 +13,28 @@ final class App extends unfiltered.filter.Plan {
   def intent = {
     case GET(Path(Seg(org :: name :: Nil)) & Params(p)) =>
       val baseUrl = baseURL(p)
-      Html5(<ul>{
+      def showVesions = Html5(<ul>{
         versions(baseUrl, org, name).map{ v =>
           <li><a href={s"$JavaSrcURL$org/$name/$v"}>{v}</a></li>
         }
       }</ul>)
+
+      if(p.get("latest").toList.flatten.isEmpty){
+        showVesions
+      }else{
+        latestVersion(baseUrl, org, name) match {
+          case Some(v) =>
+            Redirect(s"$JavaSrcURL$org/$name/$v")
+          case None =>
+            showVesions
+        }
+      }
    case GET(Path(Seg(org :: name :: version :: Nil)) & Params(p)) =>
      val baseUrl = baseURL(p)
-      viewList(baseUrl, org, name, version)
-    case GET(Path(Seg(org :: name :: version :: path)) & Params(p)) =>
-      val baseUrl = baseURL(p)
-      viewFile(baseUrl, org, name, version, path.mkString("/"))
+     viewList(baseUrl, org, name, version)
+   case GET(Path(Seg(org :: name :: version :: path)) & Params(p)) =>
+     val baseUrl = baseURL(p)
+     viewFile(baseUrl, org, name, version, path.mkString("/"))
   }
 
 }
