@@ -116,7 +116,7 @@ object App {
         val highlightjs = "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/"
         Html5(<html>
           <head>
-            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css" />
+            <link rel="stylesheet" href={highlightjs + "styles/github.min.css"} />
             <script src={highlightjs + "highlight.min.js"}>;</script>
             <script src={highlightjs + "languages/scala.min.js"}>;</script>
             <script>hljs.initHighlightingOnLoad();</script>
