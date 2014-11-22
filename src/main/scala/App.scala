@@ -15,19 +15,19 @@ final class App extends unfiltered.filter.Plan {
     case GET(Path(Seg(org :: Nil))) =>
       searchByGroupId(org) match {
         case \/-(Nil) =>
-          Html5(<p>{"not found groupId=" + org}</p>)
+          defaultView(<p>{"not found groupId=" + org}</p>)
         case \/-(list) =>
-          Html5(<ul>{
+          defaultView(<ul>{
             list.map{ name =>
               <li><a href={s"$JavaSrcURL$org/$name"}>{name}</a></li>
             }
           }</ul>)
         case -\/(error) =>
-          Html5(<pre>{error.toString + "\n" + error.getStackTrace.mkString("\n")}</pre>)
+          defaultView(<pre>{error.toString + "\n" + error.getStackTrace.mkString("\n")}</pre>)
       }
     case GET(Path(Seg(org :: name :: Nil)) & Params(p)) =>
       val baseUrl = baseURL(p)
-      def showVesions = Html5(<ul>{
+      def showVesions = defaultView(<ul>{
         versions(baseUrl, org, name).map{ v =>
           <li><a href={s"$JavaSrcURL$org/$name/$v"}>{v}</a></li>
         }
@@ -116,6 +116,7 @@ object App {
         val highlightjs = "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/"
         Html5(<html>
           <head>
+            <meta name="robots" content="noindex,nofollow" />
             <link rel="stylesheet" href={highlightjs + "styles/github.min.css"} />
             <script src={highlightjs + "highlight.min.js"}>;</script>
             <script src={highlightjs + "languages/scala.min.js"}>;</script>
@@ -130,7 +131,7 @@ object App {
     }
   }
 
-  private def viewList(baseUrl: String, org: String, name: String, version: String) = Html5(
+  private def viewList(baseUrl: String, org: String, name: String, version: String) = defaultView(
     <ul>{
       cache.apply(buildURL(baseUrl, org, name, version)).map(_._1).toList.sorted.map {
         path =>
@@ -144,6 +145,15 @@ object App {
           </li>
       }
     }</ul>
+  )
+
+  private def defaultView(x: Elem) = Html5(
+    <html>
+      <head>
+        <meta name="robots" content="noindex,nofollow" />
+      </head>
+      <body><div>{x}</div></body>
+    </html>
   )
 
   private def buildURL(baseUrl: String, org: String, name: String, version: String): String =
