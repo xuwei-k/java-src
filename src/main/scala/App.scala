@@ -64,7 +64,7 @@ object App {
   private[this] val downloadZip: String => Map[String, Array[Byte]] = { url =>
     sbt.Using.urlInputStream(new URL(url)){ in =>
       sbt.Using.zipInputStream(in){ zipIn =>
-        Iterator.continually(zipIn.getNextEntry).takeWhile(null ne).filterNot(_.isDirectory).map{ f =>
+        Iterator.continually(zipIn.getNextEntry).takeWhile(null ne _).filterNot(_.isDirectory).map{ f =>
           val name = f.getName
           val bytes = toByteArray(zipIn)
           zipIn.closeEntry()
