@@ -26,3 +26,5 @@ scalacOptions ++= (
   "-Ywarn-unused-import" ::
   Nil
 )
+
+fullResolvers ~= {_.filterNot(_.name == "jcenter")}
