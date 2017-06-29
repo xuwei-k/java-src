@@ -7,6 +7,7 @@ import unfiltered.response.{Html5, Redirect, ResponseString}
 import scala.util.control.NonFatal
 import scala.xml.{Elem, XML}
 import scalaz.{-\/, \/, \/-}
+import sbt.io.Using
 
 final class App extends unfiltered.filter.Plan {
   import java_src.App._
@@ -62,8 +63,8 @@ object App {
   final val sonatype = "https://oss.sonatype.org/content/repositories/releases/"
 
   private[this] val downloadZip: String => Map[String, Array[Byte]] = { url =>
-    sbt.Using.urlInputStream(new URL(url)){ in =>
-      sbt.Using.zipInputStream(in){ zipIn =>
+    Using.urlInputStream(new URL(url)){ in =>
+      Using.zipInputStream(in){ zipIn =>
         Iterator.continually(zipIn.getNextEntry).takeWhile(null ne _).filterNot(_.isDirectory).map{ f =>
           val name = f.getName
           val bytes = toByteArray(zipIn)
