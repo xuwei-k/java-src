@@ -58,7 +58,7 @@ object App {
 
   final val BASE = "base"
 
-  final val JavaSrcURL = "http://java-src.appspot.com/"
+  final val JavaSrcURL = "https://java-src.appspot.com/"
 
   final val sonatype = "https://oss.sonatype.org/content/repositories/releases/"
 
