@@ -114,7 +114,7 @@ object App {
       case Some(bytes) =>
         val str = new String(bytes, "UTF-8")
         val ext = path.split('.').lastOption.getOrElse("scala") // TODO
-        val highlightjs = "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/"
+        val highlightjs = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/"
         Html5(<html>
           <head>
             <meta name="robots" content="noindex,nofollow" />
