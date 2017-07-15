@@ -7,7 +7,7 @@ licenses += ("MIT License" -> url("http://www.opensource.org/licenses/mit-licens
 scalaVersion := "2.12.2"
 
 libraryDependencies ++= (
-  ("org.scala-sbt" %% "io" % "1.0.0-M11") ::
+  ("org.scala-sbt" %% "io" % "1.0.0-M12") ::
   ("com.github.xuwei-k" %% "httpz-native" % "0.5.1") ::
   ("io.argonaut" %% "argonaut-scalaz" % "6.2") ::
   ("org.scalaz" %% "scalaz-concurrent" % "7.2.14") ::
