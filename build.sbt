@@ -9,8 +9,8 @@ scalaVersion := "2.12.4"
 libraryDependencies ++= (
   ("org.scala-sbt" %% "io" % "1.1.0") ::
   ("com.github.xuwei-k" %% "httpz-native" % "0.5.1") ::
-  ("io.argonaut" %% "argonaut-scalaz" % "6.2") ::
-  ("org.scalaz" %% "scalaz-concurrent" % "7.2.16") ::
+  ("io.argonaut" %% "argonaut-scalaz" % "6.2.1") ::
+  ("org.scalaz" %% "scalaz-concurrent" % "7.2.20") ::
   ("ws.unfiltered" %% "unfiltered-filter" % "0.9.1") ::
   ("javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided") ::
   Nil
