@@ -169,7 +169,7 @@ object App {
   private[this] def transfer(in: InputStream, out: OutputStream): Unit = {
     val buffer = new Array[Byte](1024 * 32)
     @annotation.tailrec
-    def read() {
+    def read(): Unit = {
       val byteCount = in.read(buffer)
       if (byteCount >= 0) {
         out.write(buffer, 0, byteCount)

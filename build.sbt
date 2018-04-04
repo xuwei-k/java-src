@@ -25,6 +25,7 @@ val unusedWarnings = (
 scalacOptions ++= (
   "-deprecation" ::
   "-unchecked" ::
+  "-Xfuture" ::
   "-language:existentials" ::
   "-language:higherKinds" ::
   "-language:implicitConversions" ::
