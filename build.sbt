@@ -4,7 +4,7 @@ name := "java-src"
 
 licenses += ("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php"))
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.6"
 
 libraryDependencies ++= (
   ("org.scala-sbt" %% "io" % "1.1.0") ::
