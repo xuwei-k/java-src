@@ -4,14 +4,14 @@ name := "java-src"
 
 licenses += ("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php"))
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.8"
 
 libraryDependencies ++= (
-  ("org.scala-sbt" %% "io" % "1.1.0") ::
+  ("org.scala-sbt" %% "io" % "1.2.2") ::
   ("com.github.xuwei-k" %% "httpz-native" % "0.5.1") ::
-  ("io.argonaut" %% "argonaut-scalaz" % "6.2.1") ::
-  ("org.scalaz" %% "scalaz-concurrent" % "7.2.22") ::
-  ("ws.unfiltered" %% "unfiltered-filter" % "0.9.1") ::
+  ("io.argonaut" %% "argonaut-scalaz" % "6.2.2") ::
+  ("org.scalaz" %% "scalaz-concurrent" % "7.2.27") ::
+  ("ws.unfiltered" %% "unfiltered-filter" % "0.10.0-M2") ::
   ("javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided") ::
   Nil
 )
