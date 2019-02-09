@@ -60,7 +60,7 @@ object App {
 
   final val JavaSrcURL = "https://java-src.appspot.com/"
 
-  final val sonatype = "https://oss.sonatype.org/content/repositories/releases/"
+  final val sonatype = "https://oss.sonatype.org/content/repositories/releases"
 
   private[this] val downloadZip: String => Map[String, Array[Byte]] = { url =>
     Using.urlInputStream(new URL(url)){ in =>
