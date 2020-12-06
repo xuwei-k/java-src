@@ -1,7 +1,5 @@
 # java-src
 
-[![Build Status](https://travis-ci.com/xuwei-k/java-src.svg?branch=master)](https://travis-ci.com/xuwei-k/java-src)
-
 unzip sources.jar from maven repositories
 
 #### example

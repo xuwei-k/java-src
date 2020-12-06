@@ -1,9 +1,0 @@
-language: scala
-jdk: openjdk8
-sudo: false
-
-script:
-  - rm appengine.sbt
-  - rm project/appengine.sbt
-  - sbt test
-
