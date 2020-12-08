@@ -1,6 +1,6 @@
 enablePlugins(AppenginePlugin)
 
 libraryDependencies ++= (
-  ("org.eclipse.jetty" % "jetty-webapp" % "9.4.7.v20170914" % "container") ::
+  ("org.eclipse.jetty" % "jetty-webapp" % "9.4.35.v20201120" % "container") ::
   Nil
 )
